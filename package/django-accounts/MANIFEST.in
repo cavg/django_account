@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+include requirements.txt
+recursive-include account/migrations *
+recursive-include account/templates *
+recursive-include account/docs *

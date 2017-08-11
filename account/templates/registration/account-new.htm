@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+    <style type="text/css">
+        .separator{
+            margin-bottom: 20px;
+        }
+    </style>
+    <div class=" col-sm-3 col-lg-3">
+        <h3>Ingreso de nuevo usuario</h3>
+        <p>Desde aquí podrá habilitar a nuevos usuarios de su empresa</p>
+    </div>
+    <div class=" col-sm-9 col-lg9">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="panel panel-default">
+          <div class="panel-heading"><h2 class="panel-title">Datos del usuario</h2></div>
+          <div class="panel-body">
+            <form class="form-new-account" method="post" action="{% url 'account-new' %}">
+                    {% csrf_token %}
+                    <input type="email" id="email" name="email" class="form-control separator" required value="" placeholder="Email">
+                    <input type="text" id="first_name"  name="first_name" class="form-control separator" required  value="" placeholder="Nombre">
+                    <input type="text" id="last_name"  name="last_name" class="form-control separator" required  value="" placeholder="Apellido">
+                    <input type="password" id="password"  name="password1" class="form-control separator" value="" placeholder="Contraseña" minlength="5" required>
+                    <input type="password" id="password2"  name="password2" class="form-control separator" value="" placeholder="Repita su contraseña"  minlength="5" required>
+                    <div class="form-group">
+                        <label for="">Rol: El tipo Titular, contará con acceso completo al sistema.</label>
+                        <select name="role" class="form-control separator">
+                             {% for k,v in roles %}
+                               <option >{{k}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Registrar</button>
+            </form>
+          </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layout-account.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+  <div class=" col-sm-3 col-lg-4"></div>
+  <div class=" col-sm-6 col-lg-4">
+    <div class="panel panel-primary" style="margin-top:50px;">
+      <div class="panel-heading">
+          <h3 class="panel-title">Zona clientes</h3>
+      </div>
+      <div class="panel-body">
+         <div class="text-center">
+            <p>Su sesión ha sido terminada</p>
+            <a href="{% url 'login' %}">{% trans 'Log in again' %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" col-sm-3 col-lg-4"></div>
+{% endblock %}

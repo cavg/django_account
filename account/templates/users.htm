@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+    <style type="text/css">
+        .separator{
+            margin-bottom: 20px;
+        }
+    </style>
+    <div class=" col-sm-3 col-lg-3">
+        <h3>Administración de usuarios</h3>
+        <p>Su cuenta dispone de los siguientes usuarios, los cuales podrán ingresar a nuestra plataforma.
+    </div>
+    <div class=" col-sm-9 col-lg9">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="panel panel-default">
+          <div class="panel-heading"><h2 class="panel-title">Administrador de la cuenta</h2></div>
+          <div class="panel-body">
+            {{ user.first_name }} {{ user.last_name }} - {{ user.email }}
+            <hr>
+            <a href="{% url 'account-me' %}" class="btn btn-info">Actualizar mis datos</a>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Usuarios de mi empresa</h3>
+          </div>
+          <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>ROL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for account in accounts %}
+                        <tr>
+                            <td>{{account.user.first_name}} {{user.last_name}}</td>
+                            <td>{{account.user.email}}</td>
+                            <td>{{account.role}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr>
+            <a href="{% url 'account-new' %}" class="btn btn-info">Registrar nuevo usuario</a>
+          </div>
+        </div>
+    </div>
+{% endblock %}

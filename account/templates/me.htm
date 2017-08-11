@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+	<style type="text/css">
+		.separator{
+			margin-bottom: 20px;
+		}
+	</style>
+	<div class=" col-sm-6 col-lg-12">
+		{% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="panel panel-default" style="margin-top:50px;">
+            <div class="panel-heading">
+                <h3 class="panel-title">Mis Datos</h3>
+            </div>
+            <div class="panel-body">
+            	<form class="form-signin" method="post" action="{% url 'account-me' %}">
+	        		{% csrf_token %}
+		        	<input type="email" id="email" name="email" class="form-control separator" required value="{{ user.email }}" placeholder="Email">
+		        	<input type="text" id="first_name"  name="first_name" class="form-control separator" required  value="{{ user.first_name }}" placeholder="Nombre">
+		        	<input type="text" id="last_name"  name="last_name" class="form-control separator" required  value="{{ user.last_name }}" placeholder="Apellido">
+		        	<input type="password" id="password"  name="password1" class="form-control separator" value="" placeholder="Contraseña" minlength="5">
+		        	<input type="password" id="password2"  name="password2" class="form-control separator" value="" placeholder="Repita su contraseña"  minlength="5">
+			        <button class="btn btn-primary separator" type="submit">Actualizar mis datos</button>
+		      	</form>
+            </div>
+        </div>
+	</div>
+{% endblock %}
