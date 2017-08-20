@@ -2,17 +2,41 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.contrib import messages
+from django.contrib.auth.models import User
+
 
 ROLE_CHOICES = (
     ('Titular', 'Titular'),
     ('Usuario', 'Usuario')
 )
 
+def build_account(first_name, last_name, email, phone, company_name, password):
+    if not Company.objects.filter(name=company_name).exists():
+            company = Company()
+            company.name = company_name
+            if not User.objects.filter(email=email).exists():
+                company.save()
+                user = User.objects.create_user(email, email=email, password=password, first_name=first_name, last_name=last_name)
+                if user:
+                    account = Account.objects.get(user=user)
+                    account.company = company
+                    account.save()
+                    return True, messages.SUCCESS, 'Se ha registrado exitosamente en Leantech, bienvenido!'
+                else:
+                    return False, messages.WARNING, 'No se pudo registrar el usuario.'
+            else:
+                return False, messages.WARNING, 'Su correo ya está asociado a una empresa. No se pudo completar el registro.'
+    else:
+        return False, messages.WARNING, 'Su empresa ya ha sido registrada previamente, por favor ingrese en la zona de clientes.'
+    return False, None, None
+
 class Company(models.Model):
     name = models.CharField(max_length=25)
     identifier = models.CharField(max_length=25, blank=True, null=True)
     address = models.CharField(max_length=50, blank=True, null=True)
     phone = models.IntegerField(blank=True, null=True)
+    line_of_business = models.CharField(max_length=255, blank=True, null=True, default=None)
 
     def __str__(self):
         return "{}".format(self.name)

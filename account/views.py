@@ -8,7 +8,6 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.conf import settings
 
-
 def _update_account(request, template, params_template, redirect_link, self_update):
     if request.method == 'GET':
         return render(request, template, params_template)
