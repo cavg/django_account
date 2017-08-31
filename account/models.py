@@ -15,6 +15,7 @@ def build_account(first_name, last_name, email, phone, company_name, password):
     if not Company.objects.filter(name=company_name).exists():
             company = Company()
             company.name = company_name
+            company.phone = phone
             if not User.objects.filter(email=email).exists():
                 company.save()
                 user = User.objects.create_user(email, email=email, password=password, first_name=first_name, last_name=last_name)
