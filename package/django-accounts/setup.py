@@ -13,7 +13,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='django-accounts',
-    version='0.3.6',
+    version='0.3.7',
     packages=find_packages(),
     include_package_data=True,
     license='BSD License',

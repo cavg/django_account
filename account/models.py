@@ -11,11 +11,17 @@ ROLE_CHOICES = (
     ('Usuario', 'Usuario')
 )
 
-def build_account(first_name, last_name, email, phone, company_name, password):
+def build_account(first_name, last_name, email, phone, company_name, password, identifier =None, address = None, line_of_business = None):
     if not Company.objects.filter(name=company_name).exists():
             company = Company()
             company.name = company_name
             company.phone = phone
+            if identifier is not None:
+                company.identifier = identifier
+            if address is not None:
+                company.address = address
+            if line_of_business is not None:
+                company.line_of_business = line_of_business
             if not User.objects.filter(email=email).exists():
                 company.save()
                 user = User.objects.create_user(email, email=email, password=password, first_name=first_name, last_name=last_name)
