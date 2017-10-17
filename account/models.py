@@ -39,10 +39,10 @@ def build_account(first_name, last_name, email, phone, company_name, password, i
     return False, None, None
 
 class Company(models.Model):
-    name = models.CharField(max_length=25)
-    identifier = models.CharField(max_length=25, blank=True, null=True)
+    name = models.CharField(max_length=150)
+    identifier = models.CharField(max_length=50, blank=True, null=True)
     address = models.CharField(max_length=50, blank=True, null=True)
-    phone = models.IntegerField(blank=True, null=True)
+    phone = models.BigIntegerField(blank=True, null=True)
     line_of_business = models.CharField(max_length=255, blank=True, null=True, default=None)
 
     def __str__(self):

@@ -7,5 +7,5 @@ cd package/django-accounts/ &&
 python3 setup.py sdist &&
 
 #Install new version
-pip3 install --user dist/django-accounts-0.3.7.tar.gz &&
+pip3 install --user dist/django-accounts-0.4.0.tar.gz &&
 cd ../../
