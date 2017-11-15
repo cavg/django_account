@@ -5,17 +5,19 @@ from django.db.models.signals import post_save
 from django.contrib import messages
 from django.contrib.auth.models import User
 
-
+import re
 ROLE_CHOICES = (
     ('Titular', 'Titular'),
     ('Usuario', 'Usuario')
 )
 
-def build_account(first_name, last_name, email, phone, company_name, password, identifier =None, address = None, line_of_business = None):
+def build_account(first_name, last_name, email, phone, company_name, password, identifier = None, address = None, line_of_business = None):
     if not Company.objects.filter(name=company_name).exists():
             company = Company()
             company.name = company_name
-            company.phone = phone
+            phone = re.sub("\D", "", phone)
+            company.phone = int(phone)
+            email = str(email).lower()
             if identifier is not None:
                 company.identifier = identifier
             if address is not None:
